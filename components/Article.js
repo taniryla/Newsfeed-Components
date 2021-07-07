@@ -87,22 +87,22 @@ const data = [
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
   },
-  {
-    title: 'New In Javascript',
-    date: 'July 5, 2021',
-    firstParagraph: `Hodor hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor... Hodor hodor hodor; hodor hodor. Hodor hodor hodor, hodor, hodor
-          hodor. Hodor, hodor. Hodor. Hodor, hodor - hodor... Hodor hodor hodor; hodor HODOR hodor, hodor hodor?! Hodor hodor, hodor.
-          Hodor hodor hodor hodor hodor! Hodor hodor - HODOR hodor, hodor hodor hodor hodor hodor; hodor hodor? `,
+  // {
+  //   title: 'New In Javascript',
+  //   date: 'July 5, 2021',
+  //   firstParagraph: `Hodor hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor... Hodor hodor hodor; hodor hodor. Hodor hodor hodor, hodor, hodor
+  //         hodor. Hodor, hodor. Hodor. Hodor, hodor - hodor... Hodor hodor hodor; hodor HODOR hodor, hodor hodor?! Hodor hodor, hodor.
+  //         Hodor hodor hodor hodor hodor! Hodor hodor - HODOR hodor, hodor hodor hodor hodor hodor; hodor hodor? `,
 
-    secondParagraph: `Hodor, hodor. Hodor. Hodor, hodor, hodor. Hodor hodor, hodor. Hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor;
-          hodor hodor hodor? Hodor, hodor. Hodor. Hodor, hodor - HODOR hodor, hodor hodor hodor! Hodor, hodor. Hodor. Hodor, HODOR
-          hodor, hodor hodor, hodor, hodor hodor. Hodor hodor - hodor - hodor... Hodor hodor hodor hodor hodor hodor hodor?! Hodor
-          hodor - hodor hodor hodor. Hodor. Hodor hodor... Hodor hodor hodor hodor hodor? `,
+  //   secondParagraph: `Hodor, hodor. Hodor. Hodor, hodor, hodor. Hodor hodor, hodor. Hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor;
+  //         hodor hodor hodor? Hodor, hodor. Hodor. Hodor, hodor - HODOR hodor, hodor hodor hodor! Hodor, hodor. Hodor. Hodor, HODOR
+  //         hodor, hodor hodor, hodor, hodor hodor. Hodor hodor - hodor - hodor... Hodor hodor hodor hodor hodor hodor hodor?! Hodor
+  //         hodor - hodor hodor hodor. Hodor. Hodor hodor... Hodor hodor hodor hodor hodor? `,
 
-    thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
-          Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
-          Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
-  }
+  //   thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
+  //         Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
+  //         Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  // },
 ];
 
 
@@ -122,6 +122,9 @@ const data = [
   </div>
 */
   
+const dataArr = Array.from(data);
+
+
 // Creating the div element
 function articleMaker() {
   let article = document.createElement('div');
@@ -133,31 +136,49 @@ function articleMaker() {
 
 // Create the h2 and title element
 
-  let title = document.createElement('h2');
+  let titleEl = document.createElement('h2');
 
-  title.textContent = data["title"];
-
-  article.appendChild(title);
-
+  dataArr.forEach(e => {
+   titleEl.textContent = e.title;
+   console.log(e.title);
+   article.appendChild(titleEl);
+  })
+  
   // create the p and article date element
 
   let articleDate = document.createElement('p');
 
-  articleDate.textContent = data["date"];
+  dataArr.forEach(e => {
+    articleDate.textContent = e.date;
+    article.appendChild(articleDate);
+   })
 
   articleDate.classList.add('date');
 
-  article.appendChild(articleDate);
-
   // Create 3 separate paragraph elements
 
-  let paragraph = document.createElement('p');
+  let paragraph1 = document.createElement('p');
 
-  paragraph.innerHTML= `
-    data["firstParagraph"];
-    data["secondParagraph"];
-    data["thirdParagraph"];
-    `
+  dataArr.forEach(e => {
+    paragraph1.textContent = e.firstParagraph;
+    article.appendChild(paragraph1);
+   })
+
+   let paragraph2 = document.createElement('p');
+
+   dataArr.forEach(e => {
+    paragraph2.textContent = e.secondParagraph;
+    article.appendChild(paragraph2);
+   })
+
+   let paragraph3 = document.createElement('p');
+
+   dataArr.forEach(e => {
+    paragraph3.textContent = e.thirdParagraph;
+    article.appendChild(paragraph3);
+   })
+
+
     // Create span element
 
   let expandButton = document.createElement('span');
@@ -172,21 +193,19 @@ function articleMaker() {
 
   // Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton. This listener should toggle the class 'article-open' on div.article.
 
-expandButton.addEventListener('click', (event) => {
-  event.target.classList.toggle('article-open');
+expandButton.addEventListener('click', () => {
+  article.classList.toggle('article-open');
 }) 
-console.log(document);
-return article;
-
 
   // Step 3: Don't forget to return something from your function!
+return article;
 }
-  articleMaker();
+  // returning newArticle1 and newArticle2 below
 
   // Step 4: Outside your function now, loop over the data. At each iteration you'll use your component to create a div.article element and append it to the DOM inside div.articles (see index.html).
 
-data.forEach(item => {
-  let newArticle = articleMaker(item);
+dataArr.forEach(e => {
+  let newArticle = articleMaker(e);
 
   let articles = document.querySelector('.articles');
   articles.appendChild(newArticle);
@@ -207,6 +226,7 @@ let myArticle1 = {
 };
 
 let newArticle1 = articleMaker(myArticle1);
+
 
 let myArticle2 = {
   title: 'Dogs Love React"',
