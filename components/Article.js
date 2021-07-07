@@ -86,8 +86,26 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
-  }
+  },
+  // {
+  //   title: 'New In Javascript',
+  //   date: 'July 5, 2021',
+  //   firstParagraph: `Hodor hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor... Hodor hodor hodor; hodor hodor. Hodor hodor hodor, hodor, hodor
+  //         hodor. Hodor, hodor. Hodor. Hodor, hodor - hodor... Hodor hodor hodor; hodor HODOR hodor, hodor hodor?! Hodor hodor, hodor.
+  //         Hodor hodor hodor hodor hodor! Hodor hodor - HODOR hodor, hodor hodor hodor hodor hodor; hodor hodor? `,
+
+  //   secondParagraph: `Hodor, hodor. Hodor. Hodor, hodor, hodor. Hodor hodor, hodor. Hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor;
+  //         hodor hodor hodor? Hodor, hodor. Hodor. Hodor, hodor - HODOR hodor, hodor hodor hodor! Hodor, hodor. Hodor. Hodor, HODOR
+  //         hodor, hodor hodor, hodor, hodor hodor. Hodor hodor - hodor - hodor... Hodor hodor hodor hodor hodor hodor hodor?! Hodor
+  //         hodor - hodor hodor hodor. Hodor. Hodor hodor... Hodor hodor hodor hodor hodor? `,
+
+  //   thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
+  //         Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
+  //         Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  // },
 ];
+
+
 
 /*
   Step 1: Write a component called 'articleMaker' to create an article.
@@ -100,17 +118,128 @@ const data = [
 
     {three separate paragraph elements}
 
-    <span class="expandButton">+</span>
+    <span class="expandButton"> + </span>
   </div>
-
-  Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
-  This listener should toggle the class 'article-open' on div.article.
-
-  Step 3: Don't forget to return something from your function!
-
-  Step 4: Outside your function now, loop over the data. At each iteration you'll use your component
-  to create a div.article element and append it to the DOM inside div.articles (see index.html).
-
-  Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
-  Refresh the page to see the new article.
 */
+  
+const dataArr = Array.from(data);
+
+
+// Creating the div element
+function articleMaker() {
+  let article = document.createElement('div');
+
+  article.classList.add('article');
+
+  let container = document.querySelector('.header');
+  container.appendChild(article);
+
+// Create the h2 and title element
+
+  let titleEl = document.createElement('h2');
+
+  dataArr.forEach(e => {
+   titleEl.textContent = e.title;
+   console.log(e.title);
+   article.appendChild(titleEl);
+  })
+  
+  // create the p and article date element
+
+  let articleDate = document.createElement('p');
+
+  dataArr.forEach(e => {
+    articleDate.textContent = e.date;
+    article.appendChild(articleDate);
+   })
+
+  articleDate.classList.add('date');
+
+  // Create 3 separate paragraph elements
+
+  let paragraph1 = document.createElement('p');
+
+  dataArr.forEach(e => {
+    paragraph1.textContent = e.firstParagraph;
+    article.appendChild(paragraph1);
+   })
+
+   let paragraph2 = document.createElement('p');
+
+   dataArr.forEach(e => {
+    paragraph2.textContent = e.secondParagraph;
+    article.appendChild(paragraph2);
+   })
+
+   let paragraph3 = document.createElement('p');
+
+   dataArr.forEach(e => {
+    paragraph3.textContent = e.thirdParagraph;
+    article.appendChild(paragraph3);
+   })
+
+
+    // Create span element
+
+  let expandButton = document.createElement('span');
+  let articles = document.querySelector('.articles');
+
+  expandButton.textContent = '+';
+
+  expandButton.classList.add('expandButton');
+
+  articles.appendChild(expandButton);
+
+
+  // Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton. This listener should toggle the class 'article-open' on div.article.
+
+expandButton.addEventListener('click', () => {
+  article.classList.toggle('article-open');
+}) 
+
+  // Step 3: Don't forget to return something from your function!
+return article;
+}
+  // returning newArticle1 and newArticle2 below
+
+  // Step 4: Outside your function now, loop over the data. At each iteration you'll use your component to create a div.article element and append it to the DOM inside div.articles (see index.html).
+
+dataArr.forEach(e => {
+  let newArticle = articleMaker(e);
+
+  let articles = document.querySelector('.articles');
+  articles.appendChild(newArticle);
+})  
+
+  // Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others. Refresh the page to see the new article.
+
+
+
+let myArticle1 = {
+  title: 'Dogs learn to code"',
+  date: 'July 5, 2021',
+  firstParagraph: `Wow such tempt shoob boof, most angery pupper I have ever seen. Heckin angery woofer very good spot porgo yapper porgo puggo, h*ck ur givin me a spook boofers. Waggy wags super chub heck doing me a frighten borking doggo, waggy wags ruff. Dat tungg tho tungg shoober ruff, porgo big ol pupper. You are doing me the shock borkdrive long bois stop it fren, very hand that feed shibe I am bekom fat. Mlem long woofer dat tungg tho maximum borkdrive blep, yapper porgo. Pats many pats shoob blop, length boy waggy wags. Very good spot aqua doggo floofs pats, heck bork. Woofer pupperino borkdrive extremely cuuuuuute thicc, extremely cuuuuuute adorable doggo.`,
+
+  secondParagraph: `Maximum borkdrive tungg you are doing me the shock doge porgo, smol borking doggo with a long snoot for pats ur givin me a spook much ruin diet. Bork long water shoob you are doing me the shock sub woofer very good spot, doge ruff. You are doing me a frighten tungg wrinkler heckin angery woofer long bois dat tungg tho aqua doggo noodle horse heck, blep vvv much ruin diet pupper dat tungg tho mlem. Puggo long bois floofs shoob very good spot, wow very biscit woofer. Boofers wow such tempt such treat shooberino shoober heck, lotsa pats noodle horse wow such tempt. Such treat heckin angery woofer you are doing me a frighten woofer adorable doggo boofers woofer heck, corgo you are doing me the shock clouds smol borking doggo with a long snoot for pats shooberino.`,
+
+  thirdParagraph: `Doggo ipsum he made many woofs I am bekom fat smol borking doggo with a long snoot for pats. Doge long doggo blep extremely cuuuuuute doing me a frighten wrinkler much ruin diet extremely cuuuuuute, dat tungg tho mlem very taste wow the neighborhood pupper extremely cuuuuuute. blop. You are doin me a concern long bois most angery pupper I have ever seen pupperino blop, fluffer you are doing me the shock much ruin diet. Wow very biscit smol ur givin me a spook borkdrive what a nice floof, most angery pupper I have ever seen blep. Waggy wags vvv most angery pupper I have ever seen doge, blop pupperino. much ruin diet. Doge h*ck you are doing me a frighten heckin good boys very taste wow dat tungg tho adorable doggo much ruin diet, clouds borkf aqua doggo much ruin diet shooberino. Wow very biscit heckin he made many woofs h*ck noodle horse, wow such tempt borkf.`
+};
+
+let newArticle1 = articleMaker(myArticle1);
+
+
+let myArticle2 = {
+  title: 'Dogs Love React"',
+  date: 'July 6, 2021',
+  firstParagraph: `Big ol pupper borking doggo fluffer he made many woofs length boy fluffer, wow such tempt very taste wow sub woofer. Shoob boof extremely cuuuuuute heckin angery woofer smol borking doggo with a long snoot for pats extremely cuuuuuute, bork stop it fren smol borking doggo with a long snoot for pats. Most angery pupper I have ever seen boof bork long bois shoob h*ck heckin good boys and girls, sub woofer clouds ur givin me a spook wow such tempt. Long water shoob doge mlem super chub pupperino extremely cuuuuuute, length boy borkf very hand that feed shibe puggo. Shooberino doggorino long woofer what a nice floof noodle horse I am bekom fat yapper tungg, maximum borkdrive mlem very good spot lotsa pats heckin.
+  `,
+
+  secondParagraph: `Mlem h*ck the neighborhood pupper shibe, hck noodle horse. Borking doggo stop it fren pupper pupperino very good spot, heckin good boys wrinkler big ol, he made many woofs pupperino shooberino. very taste wow you are doing me a frighten much ruin diet. Shoober heck very hand that feed shibe thicc big ol doge, borking doggo pats many pats. Very jealous pupper doggo heckin, length boy. Puggorino long water shoob doggo sub woofer, many pats long woofer heckin angery woofer stop it fren, boof very good spot. dat tungg tho. Borkdrive wrinkler long woofer super chub, you are doin me a concern pupper. Many pats borkdrive heckin good boys and girls mlem, such treat aqua doggo vvv many pats, very good spot shooberino. Super chub waggy wags ruff doge many pats, smol borking doggo with a long snoot for pats shoober adorable doggo.`,
+
+  thirdParagraph: `borkf clouds heckin good boys and girls. Mlem shibe wrinkler vvv heckin angery woofer very taste wow shooberino, ruff maximum borkdrive doggo super chub such treat. Smol borking doggo with a long snoot for pats many pats smol borking doggo with a long snoot for pats heckin, you are doing me the shock. Blop yapper the neighborhood pupper heck dat tungg tho, heck heckin good boys and girls extremely cuuuuuute. Shibe most angery pupper I have ever seen ur givin me a spook floofs tungg, length boy long water shoob. Pupperino you are doing me a frighten long bois woofer pupperino, big ol pupper you are doin me a concern. Such treat adorable doggo most angery pupper I have ever seen puggo maximum borkdrive, super chub extremely cuuuuuute. Heckin good boys puggorino long doggo aqua doggo heckin clouds wow very biscit, borkf doggorino heckin angery woofer most angery pupper I have ever seen doge. H*ck floofs much ruin diet yapper long bois, shoober heck. Ruff what a nice floof doge ur givin me a spook heck, big ol heckin good boys maximum borkdrive, big ol very good spot very taste wow.`
+};
+
+let newArticle2 = articleMaker(myArticle2);
+
+console.log(newArticle1);
+console.log(newArticle2);
